@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:insert="fragments.html :: headerfiles"></head>
+    <body>
+        <header th:insert="fragments.html :: nav"></header>
+        <!-- Page content goes here -->
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Название проекта</th>
+                        <th scope="col">Описание проекта</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="prj : ${projects}">
+                        <td th:text="${prj.name}"></td>
+                        <td th:text="${prj.description}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        https://sysout.ru/vvedenie-v-thymeleaf/
+    </body>
+</html>

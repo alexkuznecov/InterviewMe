@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/intrvme?currentSchema=intrvme
+    username: intrvme
+    password: intrvme
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          auto: update
+        show_sql: true

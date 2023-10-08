@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments.html :: headerfiles">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}" />
+</head>
+<body>
+<header th:insert="fragments.html :: nav"></header>
+<!-- Page content goes here -->
+<div class="container">
+    <div class="row align-items-center" style="height: 100vh;">
+        <div class="mx-auto col-10 col-md-8 col-lg-6">
+            <form method="post" th:action="@{interview/start}">
+                <div class="form-group">
+                    <label for="candidateName">Введите имя кандидата:</label>
+                    <input class="form-control" type="text" id="candidateName" name="candidateName" />
+                    <label for="candidateCv">Ссылка на CV:</label>
+                    <input class="form-control" type="text" id="candidateCv" name="candidateCv" />
+                    <label for="candidateAdditionalInfo">Дополнительная информация о собеседовании:</label>
+                    <textarea class="form-control" type="text" id="candidateAdditionalInfo" name="candidateAdditionalInfo" rows="3"></textarea>
+                    <label for="candidateExperience">Опыт (в годах):</label>
+                    <input class="form-control" type="text" id="candidateExperience" name="candidateExperience" />
+                    <label for="candidatePosition">Предполагаемая позиция(основываясь на CV):</label>
+                    <select class="form-control" aria-label="candidatePosition" name="candidatePosition" id="candidatePosition">
+                        <option selected>Выберите вариант</option>
+                        <option value="1">Junior</option>
+                        <option value="2">Junior+</option>
+                        <option value="3">Middle</option>
+                        <option value="4">Middle+</option>
+                        <option value="5">Senior</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Начать</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/bootstrap/4.6.0/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

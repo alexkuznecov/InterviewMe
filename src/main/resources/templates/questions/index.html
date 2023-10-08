@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments.html :: headerfiles"></head>
+<body>
+<header th:insert="fragments.html :: nav"></header>
+<!-- Page content goes here -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h2>Загрузить файл с вопросами</h2>
+            <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+            <form method="post" th:action="@{questions/upload}" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="file" accept="application/csvm+json" class="form-control-file">
+                </div>
+                <button type="submit" class="btn btn-primary">Загрузить</button>
+            </form>
+            <span th:if="${msg != null}" th:text="${msg}"></span>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    <a th:href="@{/questions(page=0, sortBy='id')}">ИД</a>
+                </th>
+                <th scope="col">
+                    Текст вопроса
+                </th>
+                <th scope="col">
+                    Ответ
+                </th>
+                <th scope="col">
+                    <a th:href="@{/questions(page=0, sortBy='level')}">Уровень</a>
+                </th>
+                <th scope="col">
+                    <a th:href="@{/questions(page=0, sortBy='category')}">Категория</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="qst : ${questions}">
+                <td th:text="${qst.id}"></td>
+                <td th:text="${qst.text}"></td>
+                <td th:text="${qst.answer}"></td>
+                <td th:text="${qst.level}"></td>
+                <td th:text="${qst.category}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <span>Страница:</span>
+    <div class="pagination">
+        <span class="page-item" th:each="pageNumber : ${#numbers.sequence(0, questions.totalPages - 1)}">
+            <a class="page-link" th:href="@{/questions(page=${pageNumber}, sortBy=${sortBy})}" th:text="${pageNumber + 1}"></a>
+        </span>
+    </div>
+
+    <!--<table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Текст вопроса</th>
+            <th scope="col">Ответ</th>
+            <th scope="col">Уровень</th>
+            <th scope="col">Категория</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="qst : ${questions}">
+            <td th:text="${qst.text}"></td>
+            <td th:text="${qst.answer}"></td>
+            <td th:text="${qst.level}"></td>
+            <td th:text="${qst.category}"></td>
+        </tr>
+        </tbody>
+    </table>-->
+</div>
+
+</body>
+</html>
