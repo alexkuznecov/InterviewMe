@@ -9,6 +9,9 @@ import by.home.inerviewme.repository.QuestionsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class QuestionInfoService {
@@ -33,6 +36,19 @@ public class QuestionInfoService {
                                 .mark(Mark.getByValue(questionInfoDTO.getMark()))
                                 .additionalInfo(questionInfoDTO.getAdditionalInfo())
                                 .build()));
+    }
+
+    public List<QuestionInfoDTO> getCandidateResponsesInfo(final Long candidateId) {
+        return questionInfoRepository.findByCandidateId(candidateId)
+                .stream()
+                .map(questionInfo ->
+                        QuestionInfoDTO.builder()
+                                .questionId(questionInfo.getQuestionId())
+                                .questionText(questionsRepository.getReferenceById(questionInfo.getQuestionId()).getText())
+                                .mark(questionInfo.getMark().name())
+                                .additionalInfo(questionInfo.getAdditionalInfo())
+                                .build())
+                .collect(Collectors.toList());
     }
 
 }

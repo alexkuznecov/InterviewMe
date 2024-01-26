@@ -12,15 +12,15 @@
         <div class="mx-auto col-10 col-md-8 col-lg-6">
             <form method="post" th:action="@{interview/start}">
                 <div class="form-group">
-                    <label for="candidateName">Введите имя кандидата:</label>
+                    <label for="candidateName" class="form-label">Введите имя кандидата:</label>
                     <input class="form-control" type="text" id="candidateName" name="candidateName" />
-                    <label for="candidateCv">Ссылка на CV:</label>
+                    <label for="candidateCv" class="form-label">Ссылка на CV:</label>
                     <input class="form-control" type="text" id="candidateCv" name="candidateCv" />
-                    <label for="candidateAdditionalInfo">Дополнительная информация о собеседовании:</label>
+                    <label for="candidateAdditionalInfo" class="form-label">Дополнительная информация о собеседовании:</label>
                     <textarea class="form-control" type="text" id="candidateAdditionalInfo" name="candidateAdditionalInfo" rows="3"></textarea>
-                    <label for="candidateExperience">Опыт (в годах):</label>
+                    <label for="candidateExperience" class="form-label">Опыт (в годах):</label>
                     <input class="form-control" type="text" id="candidateExperience" name="candidateExperience" />
-                    <label for="candidatePosition">Предполагаемая позиция(основываясь на CV):</label>
+                    <label for="candidatePosition" class="form-label">Предполагаемая позиция(основываясь на CV):</label>
                     <select class="form-control" aria-label="candidatePosition" name="candidatePosition" id="candidatePosition">
                         <option selected>Выберите вариант</option>
                         <option value="1">Junior</option>

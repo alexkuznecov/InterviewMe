@@ -1,5 +1,6 @@
 package by.home.inerviewme.service;
 
+import by.home.inerviewme.dto.CandidateDTO;
 import by.home.inerviewme.entity.Candidate;
 import by.home.inerviewme.entity.Position;
 import by.home.inerviewme.repository.CandidateRepository;
@@ -28,4 +29,21 @@ public class CandidateService {
                 .getId();
     }
 
+    public Candidate getCandidate(final Long id) {
+        return candidateRepository.getReferenceById(id);
+    }
+
+    public CandidateDTO updateReviewInfo(final Long candidateId, final String reviewInfo, final String candidateRecPosition) {
+        var candidate = candidateRepository.getReferenceById(candidateId);
+        candidate.setReviewInfo(reviewInfo);
+        candidate.setRecommendedPosition(Position.getByValue(candidateRecPosition));
+        candidate = candidateRepository.save(candidate);
+        return CandidateDTO.builder()
+                .name(candidate.getName())
+                .experience(candidate.getExperience())
+                .additionalInfo(candidate.getAdditionalInfo())
+                .reviewInfo(candidate.getReviewInfo())
+                .recommendedPosition(candidate.getRecommendedPosition().name())
+                .build();
+    }
 }

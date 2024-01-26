@@ -34,4 +34,6 @@ public class Candidate {
     private LocalDateTime interviewDate;
     @Column(name = "additional_info")
     private String additionalInfo;
+    @Column(name = "review_info")
+    private String reviewInfo;
 }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments.html :: headerfiles">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}" />
+</head>
+<body>
+<header th:insert="fragments.html :: nav"></header>
+<!-- Page content goes here -->
+<div class="container">
+    <h1>Информация о кандидате</h1>
+    <table class="table table-bordered">
+        <tr>
+            <th>Имя:</th>
+            <td th:text="${candidate.name}"></td>
+        </tr>
+        <tr>
+            <th>Опыт работы:</th>
+            <td th:text="${candidate.experience}"></td>
+        </tr>
+        <tr>
+            <th>Дополнительная информация:</th>
+            <td th:text="${candidate.additionalInfo}"></td>
+        </tr>
+        <tr>
+            <th>Впечталение о кандидате после собеседования:</th>
+            <td th:text="${candidate.reviewInfo}"></td>
+        </tr>
+        <tr>
+            <th>Рекомендованная позиция:</th>
+            <td th:text="${candidate.recommendedPosition}"></td>
+        </tr>
+    </table>
+    <h3>Информация об ответах</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">
+                Ид вопроса
+            </th>
+            <th scope="col">
+                Текст вопроса
+            </th>
+            <th scope="col">
+                Качество ответа кандидата
+            </th>
+            <th scope="col">
+                Дополнительная информация
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rsp : ${responseInfo}">
+            <td th:text="${rsp.questionId}"></td>
+            <td th:text="${rsp.questionText}"></td>
+            <td th:text="${rsp.mark}"></td>
+            <td th:text="${rsp.additionalInfo}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script th:src="@{/webjars/bootstrap/4.6.0/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

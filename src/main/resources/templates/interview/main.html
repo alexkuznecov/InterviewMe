@@ -8,32 +8,32 @@
         <header th:insert="fragments.html :: nav"></header>
         <!-- Page content goes here -->
         <div class="container">
-            <div id="accordion">
+            <div id="accordion" class="accordion">
                 <div th:each="thm, iter: ${themes}" th:class="${iter.index == 0 ? 'card' : 'card collapsed'}">
-                    <div class="card">
-                        <div class="card-header" th:id="'heading-' + ${iter.index}">
+                    <div class="accordion-item">
+                        <div th:id="'heading-' + ${iter.index}" class="accordion-header">
                             <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" th:data-target="${'#collapse-' + iter.index}"
+                                <button class="btn btn-outline-primary btn-block" type="button" data-toggle="collapse" th:data-target="${'#collapse-' + iter.index}"
                                         aria-expanded="false" aria-controls="collapseOne" th:text="${thm.name}"></button>
                             </h2>
                         </div>
-                        <div th:attr="id=${'collapse-' + iter.index}" class="collapse" data-parent="#accordion">
-                            <div class="card-body">
-                                <div id="accordion2">
+                        <div th:attr="id=${'collapse-' + iter.index}" class="accordion-collapse collapse" data-parent="#accordion">
+                            <div class="accordion-body">
+                                <div id="accordion2" class="accordion accordion-flush">
                                     <div th:each="qst, iter1: ${thm.questions}" th:class="${iter1.index == 0 ? 'card' : 'card collapsed'}">
-                                        <div class="card">
-                                            <div class="card-header" th:id="'inheading-' + ${iter1.index}">
+                                        <div class="accordion-item">
+                                            <div class="accordion-header" th:id="'inheading-' + ${iter1.index}">
                                                 <h2 class="mb-0">
                                                     <button class="btn btn-link" type="button" data-toggle="collapse" th:data-target="${'#incollapse-' + iter1.index}"
                                                             aria-expanded="false" aria-controls="collapseOne" th:text="${qst.text}"></button>
                                                 </h2>
                                             </div>
-                                            <div th:attr="id=${'incollapse-' + iter1.index}" class="collapse" data-parent="#accordion2">
-                                                <div class="card-body">
+                                            <div th:attr="id=${'incollapse-' + iter1.index}" class="accordion-collapse collapse" data-parent="#accordion2">
+                                                <div class="accordion-body">
                                                     <form th:id="${'question-info-form' + iter.index + iter1.index}" method="post">
-                                                        <input type="text" name="questionId" th:value="${iter1.index}" hidden="hidden"/>
+                                                        <input type="text" name="questionId" th:value="${qst.id}" hidden="hidden"/>
                                                         <div class="form-group">
-                                                            <label for="mark">Точность ответа</label>
+                                                            <label for="mark" class="form-label">Точность ответа</label>
                                                             <select class="form-select" aria-label="quality" name="mark" id="mark">
                                                                 <option selected>Выберите вариант</option>
                                                                 <option value="1">Не ответил</option>
@@ -42,7 +42,7 @@
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="additionalInfo">Замечания</label>
+                                                            <label for="additionalInfo" class="form-label">Замечания</label>
                                                             <textarea class="form-control" id="additionalInfo" name="additionalInfo" rows="3"></textarea>
                                                         </div>
                                                         <button th:id="${'submit-question-info' + iter.index + iter1.index}" type="button" class="btn btn-primary">Сохранить</button>
@@ -57,8 +57,21 @@
                     </div>
                 </div>
             </div>
-            <form method="post" th:action="@{interview/stop}">
+            <form method="post" th:action="@{/stop}">
                 <input type="text" name="candidateId" th:value="${candidateId}" hidden="hidden"/>
+                <div class="form-group">
+                    <label for="reviewInfo" class="form-label">Общее впечатление о кондидате</label>
+                    <textarea class="form-control" id="reviewInfo" name="reviewInfo" rows="3"></textarea>
+                </div>
+                <label for="candidateRecPosition" class="form-label">Рекомендуемая позиция:</label>
+                <select class="form-control" aria-label="candidateRecPosition" name="candidateRecPosition" id="candidateRecPosition">
+                    <option selected>Выберите вариант</option>
+                    <option value="1">Junior</option>
+                    <option value="2">Junior+</option>
+                    <option value="3">Middle</option>
+                    <option value="4">Middle+</option>
+                    <option value="5">Senior</option>
+                </select>
                 <button type="submit" class="btn btn-primary btn-block">Завершить интервью</button>
             </form>
         </div>

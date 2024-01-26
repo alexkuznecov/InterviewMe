@@ -9,10 +9,10 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @Builder
-public class QuestionInfoDTO {
-    private Long questionId;
-    private String questionText;
-    private Long candidateId;
-    private String mark;
+public class CandidateDTO {
+    private String name;
+    private String experience;
     private String additionalInfo;
+    private String reviewInfo;
+    private String recommendedPosition;
 }

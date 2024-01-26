@@ -2,6 +2,7 @@ package by.home.inerviewme.controller;
 
 import by.home.inerviewme.service.CandidateService;
 import by.home.inerviewme.service.InterviewService;
+import by.home.inerviewme.service.QuestionInfoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ public class InterviewController {
 
     private final InterviewService interviewService;
     private final CandidateService candidateService;
+    private final QuestionInfoService questionInfoService;
 
     @GetMapping("/interview")
     private String getAll(Model model) {
@@ -38,11 +40,14 @@ public class InterviewController {
         return "/interview/main";
     }
 
-    @PostMapping("/interview/stop")
+    @PostMapping("/stop")
     public String stopInterview(
-            @RequestParam(name = "candidateId") String candidateId,
+            @RequestParam(name = "candidateId") Long candidateId,
+            @RequestParam(name = "reviewInfo") String reviewInfo,
+            @RequestParam(name = "candidateRecPosition") String candidateRecPosition,
             Model model) {
-
+        model.addAttribute("candidate", candidateService.updateReviewInfo(candidateId, reviewInfo, candidateRecPosition));
+        model.addAttribute("responseInfo", questionInfoService.getCandidateResponsesInfo(candidateId));
         return "/interview/result";
     }
 
